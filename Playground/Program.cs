@@ -96,18 +96,20 @@ string holmes = File.ReadAllText("holmes.txt");
 string rur = File.ReadAllText("rur.txt");
 
 
-
-
-foreach(var a in WordFreg(GetWords(alice)))
+Console.WriteLine("");
+Console.WriteLine("Alice");
+foreach (var a in WordFreg(GetWords(alice)))
 {
     Console.WriteLine(a);
 }
-
+Console.WriteLine("");
+Console.WriteLine("Holmes");
 foreach (var a in WordFreg(GetWords(holmes)))
 {
     Console.WriteLine(a);
 }
-
+Console.WriteLine("");
+Console.WriteLine("RUR");
 foreach (var a in WordFreg(GetWords(rur)))
 {
     Console.WriteLine(a);
