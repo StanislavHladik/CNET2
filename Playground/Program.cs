@@ -103,7 +103,15 @@ foreach(var a in WordFreg(GetWords(alice)))
     Console.WriteLine(a);
 }
 
-Console.WriteLine();
+foreach (var a in WordFreg(GetWords(holmes)))
+{
+    Console.WriteLine(a);
+}
+
+foreach (var a in WordFreg(GetWords(rur)))
+{
+    Console.WriteLine(a);
+}
 
 
 static List<string> GetWords(string input)
@@ -133,14 +141,19 @@ static Dictionary<string, int> WordFreg(List<string> input)
 {
     var tuples = input.GroupBy(x => x)
                       .Select(g => (Letter: g.Key, Count: g.Count()))
-                      .OrderByDescending(x => x.Count)
+                      .OrderByDescending(x => x.Count);
 
 
     Dictionary<string, int> dict = new Dictionary<string, int>();
 
+    int count = 0;
     foreach (var tuple in tuples)
     {
-        dict.Add(tuple.Letter, tuple.Count);
+        if (count < 10)
+        {
+            dict.Add(tuple.Letter, tuple.Count);
+        }
+        count = count + 1;
     }
 
     return dict;
