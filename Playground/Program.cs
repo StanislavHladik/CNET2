@@ -2,6 +2,7 @@
 // Console.WriteLine("String ToUpper");
 
 using Playground;
+using System.Text.RegularExpressions;
 
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
@@ -90,9 +91,64 @@ foreach(var s in strings)
 
 // Dictionary
 
-var dict = CharFreg("aabbccddaaddkkttmmgg");
+string alice = File.ReadAllText("alice.txt");
+string holmes = File.ReadAllText("holmes.txt");
+string rur = File.ReadAllText("rur.txt");
 
-Console.WriteLine();  
+
+
+
+foreach(var a in WordFreg(GetWords(alice)))
+{
+    Console.WriteLine(a);
+}
+
+Console.WriteLine();
+
+
+static List<string> GetWords(string input)
+{
+    MatchCollection matches = Regex.Matches(input, @"\b[\w']*\b");
+
+    var words = from m in matches.Cast<Match>()
+                where !string.IsNullOrEmpty(m.Value)
+                select OdebraniMezer(m.Value);
+
+    return words.ToList();
+}
+
+
+static string OdebraniMezer(string word)
+{
+    int apostropheLocation = word.IndexOf('\'');
+    if (apostropheLocation != -1)
+    {
+        word = word.Substring(0, apostropheLocation);
+    }
+
+    return word;
+}
+
+static Dictionary<string, int> WordFreg(List<string> input)
+{
+    var tuples = input.GroupBy(x => x)
+                      .Select(g => (Letter: g.Key, Count: g.Count()))
+                      .OrderByDescending(x => x.Count)
+
+
+    Dictionary<string, int> dict = new Dictionary<string, int>();
+
+    foreach (var tuple in tuples)
+    {
+        dict.Add(tuple.Letter, tuple.Count);
+    }
+
+    return dict;
+
+}
+
+
+
 
 static Dictionary<char, int> CharFreg(string input)
 {
@@ -103,7 +159,7 @@ static Dictionary<char, int> CharFreg(string input)
 
     Dictionary<char, int> dict = new Dictionary<char, int>();
 
-    foreach(var tuple in tuples)
+    foreach (var tuple in tuples)
     {
         dict.Add(tuple.Letter, tuple.Count);
     }
@@ -111,6 +167,8 @@ static Dictionary<char, int> CharFreg(string input)
     return dict;
 
 }
+
+
 
 
 static void PrintList(List<string> listToPrint)
