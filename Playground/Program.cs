@@ -46,15 +46,84 @@ var sumLetters = strings.Select(x => x.Length).Sum();
 Console.WriteLine($"Dohromadey je {sumLetters} písmen");
 */
 
-
+/*
 var result = strings.Select(slovo => new UpperLowerString(slovo))
-                    .Select(x => $"upper: {x.UpperCase} lowe:{x.LowerCase}");
+                    .Select(x => $"upper: {x.UpperCase} lower:{x.LowerCase}");
 
 PrintList(result.ToList());
+*/
+
+/*
+var result = strings.Select(slovo => (slovo.ToUpper(), slovo.ToLower()));
+PrintItems<(string, string)>(result);
+*/
+
+// Spojení slov do jednoho řetězce
+//var aggregated = string.Join("", strings);
+
+// Pracuje se stringem jako kolekcí znaků
+/*
+var result = aggregated
+                    // Seskupení podle písmenek (char v kolekci string)
+                    .GroupBy(x => x)
+                    // Vytvoření tuple obsahující klíč a počet znaků
+                    .Select(g => (Letter: g.Key,Count: g.Count())) 
+                    .OrderByDescending(x => x.Count)
+                    .ThenBy(x => x.Letter);
+
+PrintItems(result);
+*/
+/*
+foreach(var s in strings)
+{
+    foreach(var ch in s )
+
+    foreach(var ch in s)
+    {
+        int freq = s.Where(x => (x == ch)).Count();
+        Console.WriteLine(freq);
+    }
+   
+}
+*/
+
+
+// Dictionary
+
+var dict = CharFreg("aabbccddaaddkkttmmgg");
+
+Console.WriteLine();  
+
+static Dictionary<char, int> CharFreg(string input)
+{
+    var tuples = input.GroupBy(x => x)
+                      .Select(g => (Letter: g.Key, Count: g.Count()))
+                      .OrderBy(x => x.Count)
+                      .ThenByDescending(x => x.Letter);
+
+    Dictionary<char, int> dict = new Dictionary<char, int>();
+
+    foreach(var tuple in tuples)
+    {
+        dict.Add(tuple.Letter, tuple.Count);
+    }
+
+    return dict;
+
+}
+
 
 static void PrintList(List<string> listToPrint)
 {
     foreach (var item in listToPrint)
+    {
+        Console.WriteLine(item);
+    }
+}
+
+static void PrintItems<T>(IEnumerable<T> items)
+{
+    foreach (var item in items)
     {
         Console.WriteLine(item);
     }
