@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-
 // var results = strings.Select(x => x.ToUpper());
 
 /*
@@ -90,79 +89,30 @@ foreach(var s in strings)
 
 
 // Dictionary
-
 string alice = File.ReadAllText("alice.txt");
 string holmes = File.ReadAllText("holmes.txt");
 string rur = File.ReadAllText("rur.txt");
 
-
+/*
 Console.WriteLine("");
 Console.WriteLine("Alice");
-foreach (var a in WordFreg(GetWords(alice)))
+foreach (var a in TextTools.WordFreg(TextTools.GetWords(alice)))
 {
     Console.WriteLine(a);
 }
 Console.WriteLine("");
 Console.WriteLine("Holmes");
-foreach (var a in WordFreg(GetWords(holmes)))
+foreach (var a in TextTools.WordFreg(TextTools.GetWords(holmes)))
 {
     Console.WriteLine(a);
 }
 Console.WriteLine("");
 Console.WriteLine("RUR");
-foreach (var a in WordFreg(GetWords(rur)))
+foreach (var a in TextTools.WordFreg(TextTools.GetWords(rur)))
 {
     Console.WriteLine(a);
 }
-
-
-static List<string> GetWords(string input)
-{
-    MatchCollection matches = Regex.Matches(input, @"\b[\w']*\b");
-
-    var words = from m in matches.Cast<Match>()
-                where !string.IsNullOrEmpty(m.Value)
-                select OdebraniMezer(m.Value);
-
-    return words.ToList();
-}
-
-
-static string OdebraniMezer(string word)
-{
-    int apostropheLocation = word.IndexOf('\'');
-    if (apostropheLocation != -1)
-    {
-        word = word.Substring(0, apostropheLocation);
-    }
-
-    return word;
-}
-
-static Dictionary<string, int> WordFreg(List<string> input)
-{
-    var tuples = input.GroupBy(x => x)
-                      .Select(g => (Letter: g.Key, Count: g.Count()))
-                      .OrderByDescending(x => x.Count);
-
-
-    Dictionary<string, int> dict = new Dictionary<string, int>();
-
-    int count = 0;
-    foreach (var tuple in tuples)
-    {
-        if (count < 10)
-        {
-            dict.Add(tuple.Letter, tuple.Count);
-        }
-        count = count + 1;
-    }
-
-    return dict;
-
-}
-
-
+*/
 
 
 static Dictionary<char, int> CharFreg(string input)
@@ -182,9 +132,6 @@ static Dictionary<char, int> CharFreg(string input)
     return dict;
 
 }
-
-
-
 
 static void PrintList(List<string> listToPrint)
 {
