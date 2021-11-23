@@ -2,9 +2,9 @@
 {
     public class TextTools
     {
-        public static Dictionary<string, int> FreqAnalysis(string file, string splitBy = " ")
+        public static async Task<Dictionary<string, int>> FreqAnalysis(string file, string splitBy = " ")
         {
-            var content = File.ReadAllText(file);
+            var content = await File.ReadAllTextAsync(file);
             var words = content.Split(splitBy);
 
             Dictionary<string, int> dict = new();
