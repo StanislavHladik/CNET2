@@ -3,17 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFTextGUI
 {
@@ -61,14 +52,14 @@ namespace WPFTextGUI
 
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-
-            Mouse.OverrideCursor = Cursors.Wait;
+            txbInfo.Text = txbDebugInfo.Text = "";
 
             var filePath = "words01.txt";
-
             var files = GetBigFiles();
+
 
             //var file = System.IO.Path.Combine(bigFilesDir, filePath);
 
@@ -87,6 +78,9 @@ namespace WPFTextGUI
 
                 txbInfo.Text += Environment.NewLine;
                 txbDebugInfo.Text += stopWatch.ElapsedMilliseconds + Environment.NewLine;
+
+                pgbBar1.Value += 100 / files.Count();
+
             }
 
             stopWatch.Stop();
@@ -94,20 +88,21 @@ namespace WPFTextGUI
 
             Mouse.OverrideCursor = null;
 
+            pgbBar1.Value = 100 ;
+
         }
 
         private void btnStatsAll_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-
-            Mouse.OverrideCursor = Cursors.Wait;
+            txbInfo.Text = txbDebugInfo.Text = "";
 
             var files = GetBigFiles();
-
             var allWords = string.Join
                            (
-                           Environment.NewLine, 
+                           Environment.NewLine,
                            files.Select(f => File.ReadAllText(f))
                            );
 
@@ -123,6 +118,11 @@ namespace WPFTextGUI
             txbDebugInfo.Text = "elapsed ms: " + stopWatch.ElapsedMilliseconds.ToString();
 
             Mouse.OverrideCursor = null;
+        }
+
+        private void btnStatsAllParalel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
