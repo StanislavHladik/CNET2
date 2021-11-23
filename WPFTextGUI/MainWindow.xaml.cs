@@ -22,6 +22,14 @@ namespace WPFTextGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        static string bigFilesDir = @"C:\Users\S1244598\source\repos\CNET2\bigfiles";
+
+        static IEnumerable<string> GetBigFiles()
+        {
+            return Directory.EnumerateFiles(bigFilesDir, "*.txt");
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,13 +55,9 @@ namespace WPFTextGUI
             //    txbInfo.Text += Environment.NewLine;
 
             //}
-
         }
 
-        static IEnumerable<string> GetFilesFromDir(string dir)
-        {
-            return Directory.EnumerateFiles(dir);
-        }
+
 
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
@@ -62,16 +66,15 @@ namespace WPFTextGUI
 
             Mouse.OverrideCursor = Cursors.Wait;
 
-            var bigFilesDir = @"C:\Users\S1244598\source\repos\CNET2\bigfiles";
             var filePath = "words01.txt";
 
-            var files = Directory.EnumerateFiles(bigFilesDir, "*.txt");
+            var files = GetBigFiles();
 
             //var file = System.IO.Path.Combine(bigFilesDir, filePath);
 
             foreach (var file in files)
             {
-                var wordStats = await TextTools.TextTools.FreqAnalysis(file, Environment.NewLine);
+                var wordStats = await TextTools.TextTools.FreqAnalysisFromFileAsync(file, Environment.NewLine);
                 var top10 = TextTools.TextTools.GetTopWords(10, wordStats);
                 var fi = new FileInfo(file);
 
@@ -83,6 +86,7 @@ namespace WPFTextGUI
                 }
 
                 txbInfo.Text += Environment.NewLine;
+                txbDebugInfo.Text += stopWatch.ElapsedMilliseconds + Environment.NewLine;
             }
 
             stopWatch.Stop();
@@ -90,6 +94,35 @@ namespace WPFTextGUI
 
             Mouse.OverrideCursor = null;
 
+        }
+
+        private void btnStatsAll_Click(object sender, RoutedEventArgs e)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            Mouse.OverrideCursor = Cursors.Wait;
+
+            var files = GetBigFiles();
+
+            var allWords = string.Join
+                           (
+                           Environment.NewLine, 
+                           files.Select(f => File.ReadAllText(f))
+                           );
+
+            var dict = TextTools.TextTools.FreqAnalysisFromString(allWords, Environment.NewLine);
+            var top10 = TextTools.TextTools.GetTopWords(10, dict);
+
+            foreach (var kv in top10)
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Key} {Environment.NewLine}";
+            }
+
+            stopWatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopWatch.ElapsedMilliseconds.ToString();
+
+            Mouse.OverrideCursor = null;
         }
     }
 }

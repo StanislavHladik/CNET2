@@ -17,11 +17,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Name="btnLoad" Grid.ColumnSpan="2" 
-                Grid.Row="0" Content="Load.." 
-                HorizontalAlignment="Stretch" Margin="10" 
-                VerticalAlignment="Center" Height="33" 
+        <Button Name="btnLoad" Content="Read Async" 
+                Margin="25,0,215,0" 
+                VerticalAlignment="Center" 
+                Height="32" 
                 Click="btnLoad_Click" 
+         />
+
+        <Button Name="btnStatsAll" 
+                Content="Stats all" 
+                Margin="210,17,25,0" 
+                VerticalAlignment="Top" 
+                Height="32" 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Click="btnStatsAll_Click" 
          />
 
         <ScrollViewer Grid.Row="1">

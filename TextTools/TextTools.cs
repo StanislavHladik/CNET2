@@ -2,9 +2,19 @@
 {
     public class TextTools
     {
-        public static async Task<Dictionary<string, int>> FreqAnalysis(string file, string splitBy = " ")
+        public static async Task<Dictionary<string, int>> FreqAnalysisFromFileAsync(string file, string splitBy = " ")
         {
-            var content = await File.ReadAllTextAsync(file);
+            var content = await File.ReadAllTextAsync(file);             
+            return FreqAnalysisFromString(content, splitBy);
+        }
+        public static Dictionary<string, int> FreqAnalysisfromFile(string file, string splitBy = " ")
+        {
+            var content = File.ReadAllText(file);
+            return FreqAnalysisFromString(content, splitBy);
+        }
+        public static Dictionary<string, int> FreqAnalysisFromString(string content, string splitBy = " ")
+        {
+        
             var words = content.Split(splitBy);
 
             Dictionary<string, int> dict = new();
@@ -26,7 +36,6 @@
 
             return dict;
         }
-
         public static Dictionary<string, int> GetTopWords(int takeTop, Dictionary<string, int> dict)
         {
             return dict
