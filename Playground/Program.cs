@@ -13,53 +13,83 @@ if (res1.IsSuccessStatusCode && res2.IsSuccessStatusCode && res3.IsSuccessStatus
 {
     string content1 = await res1.Content.ReadAsStringAsync();
 
-    var task1 = Task.Run(() =>
+    var task1 = Task<Dictionary<string, int>>.Run(() =>
     {
+        Dictionary<string, int> dictionary = new();
         var dict = TextTools.TextTools.FreqAnalysisFromString(content1);
         var top10 = TextTools.TextTools.GetTopWords(10, dict);
 
         foreach (var kv in top10)
         {
-            Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
-        }
+            //Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
+            dictionary.Add(kv.Key, kv.Value);   
 
+        }
         Console.WriteLine("Task finished 1");
+
+        return dictionary;
     }
     );
 
-    string content2 = await res1.Content.ReadAsStringAsync();
+    string content2 = await res2.Content.ReadAsStringAsync();
 
-    var task2 = Task.Run(() =>
+    var task2 = Task<Dictionary<string, int>>.Run(() =>
     {
+        Dictionary<string, int> dictionary = new();
         var dict = TextTools.TextTools.FreqAnalysisFromString(content2);
         var top10 = TextTools.TextTools.GetTopWords(10, dict);
 
         foreach (var kv in top10)
         {
-            Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
+            //Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
+            dictionary.Add(kv.Key, kv.Value);
         }
-
         Console.WriteLine("Task finished 2");
+
+        return dictionary;
     }
     );
 
-    string content3 = await res1.Content.ReadAsStringAsync();
+    string content3 = await res3.Content.ReadAsStringAsync();
 
-    var task3 = Task.Run(() =>
+    var task3 = Task<Dictionary<string, int>>.Run(() =>
     {
+        Dictionary<string, int> dictionary = new();
         var dict = TextTools.TextTools.FreqAnalysisFromString(content3);
         var top10 = TextTools.TextTools.GetTopWords(10, dict);
 
         foreach (var kv in top10)
         {
-            Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
+            //Console.WriteLine($"{kv.Key}: {kv.Key} {Environment.NewLine}");
+            dictionary.Add(kv.Key, kv.Value);
         }
-
         Console.WriteLine("Task finished 3");
+
+        return dictionary;
     }
     );
 
     Task.WaitAll(task1, task2, task3);
+
+    Console.WriteLine("Analýza 1");
+    foreach (var item in task1.Result)
+    {
+        Console.WriteLine($"{item.Key} - {item.Value}");
+    }
+    Console.WriteLine("-------------------------------");
+    Console.WriteLine("Analýza 2");
+    foreach (var item in task2.Result)
+    {
+        Console.WriteLine($"{item.Key} - {item.Value}");
+    }
+    Console.WriteLine("-------------------------------");
+    Console.WriteLine("Analýza 3");
+    foreach (var item in task3.Result)
+    {
+        Console.WriteLine($"{item.Key} - {item.Value}");
+    }
+    Console.WriteLine("-------------------------------");
+
 }
 
 
@@ -99,7 +129,6 @@ var task3 = Task<Dictionary<string, int>>.Run(() =>
                 }
                 );
 */
-
 
 //Task.WaitAny(task1, task2);
 //Task.WaitAll(task1, task2);    
