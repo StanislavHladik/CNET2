@@ -13,48 +13,53 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Name="btnLoad" Content="Read Async" 
-                Margin="25,0,295,0" 
-                VerticalAlignment="Center" 
-                Height="32" 
-                Click="btnLoad_Click" 
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="0">
+            <WrapPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+
+         <Button Name="btnLoad" 
+                 Content="Read Async" 
+                 VerticalAlignment="Center" 
+                 Height="32" 
+                 Click="btnLoad_Click" 
+                 Margin="5"
          />
 
-        <Button Name="btnStatsAll" 
-                Content="Stats all" 
-                Margin="110,0,230,0" 
-                VerticalAlignment="Center" 
-                Height="32" 
-                Click="btnStatsAll_Click" 
+         <Button Name="btnStatsAll" 
+                 Content="Stats all" 
+                 VerticalAlignment="Center" 
+                 Height="32" 
+                 Click="btnStatsAll_Click"
+                 Margin="5"
          />
 
-        <Button x:Name="btnStatsAllParallel" 
-                Content="Stats all (P)" 
-                Margin="175,0,155,0" 
-                VerticalAlignment="Center" 
-                Height="32" 
-                Click="btnStatsAllParallel_Click" 
+         <Button x:Name="btnStatsAllParallel" 
+                 Content="Stats all (P)" 
+                 VerticalAlignment="Center" 
+                 Height="32" 
+                 Click="btnStatsAllParallel_Click" 
+                 Margin="5"
          />
 
-        <Button x:Name="btnStatsAllParallelLock" 
-            Content="Stats all (P-L)" 
-            Margin="250,0,70,0" 
-            VerticalAlignment="Center" 
-            Height="32" 
-            Click="btnStatsAllParallelLock_Click" 
+         <Button x:Name="btnStatsAllParallelLock" 
+                 Content="Stats all (P-L)" 
+                 VerticalAlignment="Center" 
+                 Height="32" 
+                 Click="btnStatsAllParallelLock_Click" 
+                 Margin="5"
          />
-
-        <ProgressBar Name="pgbBar1"
+            </WrapPanel>
+            <ProgressBar Name="pgbBar1"
                      HorizontalAlignment="Left" 
                      Height="15" 
-                     Margin="115,24,0,0" 
+                     Margin="5" 
                      VerticalAlignment="Top" 
                      Width="275" Grid.Column="1"
          />
+        </StackPanel>
 
         <ScrollViewer Grid.Row="1">
             <TextBlock Name="txbInfo" FontSize="20"/>
