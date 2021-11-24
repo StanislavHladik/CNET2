@@ -23,5 +23,34 @@ namespace WPFTextGUI.Webcheck
         {
             InitializeComponent();
         }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            var url = txtUrl.Text;
+            var term = txtTerm.Text;
+
+            if(Webs.WebsToCheck.TryAdd(url, true))
+            {
+                WebCheck wc = new WebCheck(url, term);
+                WebCheckWindow wcw = new WebCheckWindow(wc);
+                wcw.Show();
+            }
+
+            txtUrl.Text = txtTerm.Text = "";
+            
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            var url = txtUrl.Text;
+
+            var success = Webs.WebsToCheck.TryUpdate(url, false, true);
+
+            if (!success)
+            {
+                MessageBox.Show("failed to stop " + url, "Error", MessageBoxButton.OK);
+            }
+
+        }
     }
 }
