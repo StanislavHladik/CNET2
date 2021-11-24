@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <Button Name="btnLoad" Content="Read Async" 
-                Margin="25,0,235,0" 
+                Margin="25,0,295,0" 
                 VerticalAlignment="Center" 
                 Height="32" 
                 Click="btnLoad_Click" 
@@ -26,19 +26,26 @@
 
         <Button Name="btnStatsAll" 
                 Content="Stats all" 
-                Margin="170,0,90,0" 
+                Margin="110,0,230,0" 
                 VerticalAlignment="Center" 
                 Height="32" 
                 Click="btnStatsAll_Click" 
          />
 
-        <Button x:Name="btnStatsAllParalel" 
+        <Button x:Name="btnStatsAllParallel" 
                 Content="Stats all (P)" 
-                Margin="315,0,345,0" 
+                Margin="175,0,155,0" 
                 VerticalAlignment="Center" 
                 Height="32" 
-                Click="btnStatsAllParalel_Click" 
-                Grid.ColumnSpan="2" 
+                Click="btnStatsAllParallel_Click" 
+         />
+
+        <Button x:Name="btnStatsAllParallelLock" 
+            Content="Stats all (P-L)" 
+            Margin="250,0,70,0" 
+            VerticalAlignment="Center" 
+            Height="32" 
+            Click="btnStatsAllParallelLock_Click" 
          />
 
         <ProgressBar Name="pgbBar1"
@@ -56,6 +63,7 @@
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <TextBlock Name="txbDebugInfo" FontSize="20"/>
         </ScrollViewer>
+
 
     </Grid>
 </Window>

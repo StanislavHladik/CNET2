@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WPFTextGUI.Model;
 
 namespace WPFTextGUI
 {
@@ -48,8 +51,6 @@ namespace WPFTextGUI
             //}
         }
 
-
-
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
@@ -79,8 +80,9 @@ namespace WPFTextGUI
                 txbInfo.Text += Environment.NewLine;
                 txbDebugInfo.Text += stopWatch.ElapsedMilliseconds + Environment.NewLine;
 
-                pgbBar1.Value += 100 / files.Count();
+                Data.Data.Results.Add(new StatsResult() { Source = file, Top10Words = top10 });
 
+                pgbBar1.Value += 100 / files.Count();
             }
 
             stopWatch.Stop();
@@ -88,8 +90,7 @@ namespace WPFTextGUI
 
             Mouse.OverrideCursor = null;
 
-            pgbBar1.Value = 100 ;
-
+            pgbBar1.Value = 100;
         }
 
         private void btnStatsAll_Click(object sender, RoutedEventArgs e)
@@ -120,9 +121,74 @@ namespace WPFTextGUI
             Mouse.OverrideCursor = null;
         }
 
-        private void btnStatsAllParalel_Click(object sender, RoutedEventArgs e)
+        private void btnStatsAllParallel_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            txbInfo.Text = txbDebugInfo.Text = "";
 
+            ConcurrentDictionary<string, int> dict = new();
+
+            var files = GetBigFiles();
+
+            Parallel.ForEach
+            (
+                files, file =>
+                {
+                    foreach(var word in File.ReadAllLines(file))
+                    {
+                        dict.AddOrUpdate(word, 1, (key, oldvalue) => oldvalue + 1);
+                    }
+                }
+            );
+
+            foreach (var kv in dict.OrderByDescending(x => x.Value).Take(10))
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+            }
+
+            stopWatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopWatch.ElapsedMilliseconds.ToString();
+
+            Mouse.OverrideCursor = null;
         }
+
+        private void btnStatsAllParallelLock_Click(object sender, RoutedEventArgs e)
+        {
+            txbInfo.Text = txbDebugInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+
+            object locker = new object();
+            Dictionary<string, int> dict = new();
+
+            var files = GetBigFiles();
+
+            Parallel.ForEach(files, file =>
+            {
+                foreach (var word in File.ReadAllLines(file))
+                {
+                    lock (locker)
+                    {
+                        if (dict.ContainsKey(word))
+                            dict[word]++;
+                        else
+                            dict.Add(word, 1);
+                    }
+                }
+            });
+
+            foreach (var kv in dict.OrderByDescending(x => x.Value).Take(10))
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+            }
+
+            stopwatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
+        }
+
     }
 }
