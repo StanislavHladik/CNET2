@@ -51,13 +51,23 @@
                  Click="btnStatsAllParallelLock_Click" 
                  Margin="5"
          />
-            </WrapPanel>
-            <ProgressBar Name="pgbBar1"
-                     HorizontalAlignment="Left" 
-                     Height="15" 
-                     Margin="5" 
-                     VerticalAlignment="Top" 
-                     Width="275" Grid.Column="1"
+
+         <Button Name="btnShowAnalysisDetail" 
+                 Content="Stats Result"
+                 Grid.Row="0" 
+                 FontSize="16"  
+                 Margin="5"
+                 Height="32" 
+                 Click="btnShowAnalysisDetail_Click"
+          />
+
+         </WrapPanel>
+         <ProgressBar Name="progress1"
+                      HorizontalAlignment="Left" 
+                      Height="15" 
+                      Margin="5" 
+                      VerticalAlignment="Top" 
+                      Width="275" Grid.Column="1"
          />
         </StackPanel>
 

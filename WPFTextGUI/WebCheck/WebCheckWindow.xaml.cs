@@ -29,9 +29,15 @@ namespace WPFTextGUI.Webcheck
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            txtWebCheckInfo.Text = $"Spouštím hledání {webcheck.Term} v {webcheck.Url}...";
+            txtWebCheckInfo.Text = $"spouštím hledání textu {webcheck.Term} v {webcheck.Url}...{Environment.NewLine}";
 
-            webcheck.Start();
+            IProgress<string> progress = new Progress<string>(message =>
+            {
+                txtWebCheckInfo.Text += message;
+            });
+
+            webcheck.Start(progress);
+
         }
     }
 }

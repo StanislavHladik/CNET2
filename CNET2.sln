@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextTools", "TextTools\Text
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFTextGUI", "WPFTextGUI\WPFTextGUI.csproj", "{BE5537CE-E961-4A1D-87C7-B43DA4EC2D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{69EF6ED6-804D-467D-B5D7-6494ECE8FEFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{69EF6ED6-804D-467D-B5D7-6494ECE8FEFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinAPI", "MinAPI\MinAPI.csproj", "{5F0CB45D-F7A4-4F60-95D8-5853EE661AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{69EF6ED6-804D-467D-B5D7-6494ECE8FEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69EF6ED6-804D-467D-B5D7-6494ECE8FEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69EF6ED6-804D-467D-B5D7-6494ECE8FEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F0CB45D-F7A4-4F60-95D8-5853EE661AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F0CB45D-F7A4-4F60-95D8-5853EE661AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F0CB45D-F7A4-4F60-95D8-5853EE661AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F0CB45D-F7A4-4F60-95D8-5853EE661AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

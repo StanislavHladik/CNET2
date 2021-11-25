@@ -7,6 +7,20 @@
             var content = await File.ReadAllTextAsync(file);             
             return FreqAnalysisFromString(content, splitBy);
         }
+        public static async Task<Dictionary<string, int>> FreqAnalysisfromUrlAsync(string url, string splitBy = " ")
+        {
+            using var client = new HttpClient();
+
+            try
+            {
+                string content = await client.GetStringAsync(url);
+                return FreqAnalysisFromString(content, splitBy);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Failed FreqAnalysisfromUrlAsync " + url);
+            }      
+        }
         public static Dictionary<string, int> FreqAnalysisfromFile(string file, string splitBy = " ")
         {
             var content = File.ReadAllText(file);
