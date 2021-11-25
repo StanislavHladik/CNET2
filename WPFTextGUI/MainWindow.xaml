@@ -44,7 +44,7 @@
                  Margin="5"
          />
 
-         <Button x:Name="btnStatsAllParallelLock" 
+                <Button x:Name="btnStatsAllParallelLock" 
                  Content="Stats all (P-L)" 
                  VerticalAlignment="Center" 
                  Height="32" 
@@ -52,16 +52,7 @@
                  Margin="5"
          />
 
-         <Button Name="btnShowAnalysisDetail" 
-                 Content="Stats Result"
-                 Grid.Row="0" 
-                 FontSize="16"  
-                 Margin="5"
-                 Height="32" 
-                 Click="btnShowAnalysisDetail_Click"
-          />
-
-         </WrapPanel>
+            </WrapPanel>
          <ProgressBar Name="progress1"
                       HorizontalAlignment="Left" 
                       Height="15" 
@@ -69,6 +60,15 @@
                       VerticalAlignment="Top" 
                       Width="275" Grid.Column="1"
          />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <Label VerticalAlignment="Center" FontSize="20">URL:</Label>
+                <TextBox Name="txtInputUrl" Width="300" />
+                <Button Name="btnShowAnalysisDetail" Content="Analyze"
+                        Grid.Row="0" FontSize="16"  Margin="5"
+                        Height="32" Click="btnShowAnalysisDetail_Click"/>
+            </StackPanel>
+
         </StackPanel>
 
         <ScrollViewer Grid.Row="1">
