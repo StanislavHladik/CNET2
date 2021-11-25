@@ -1,3 +1,5 @@
+using WPFTextGUI.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +23,14 @@ app.MapGet("/hello", () => "hello");
 // POST -> /stats
 // GET -> /stats/5
 // GET -> /sats/all
+
+app.MapGet("/stats/{id}", (int id) => 
+{
+    StatsResult sr = new();
+    sr.Id = id;
+    sr.Source = "dummy result";
+    return sr;
+});
 
 app.Run();
 
