@@ -10,5 +10,7 @@ namespace WPFTextGUI.Data
     public class Data
     {
         public static List<StatsResult> Results { get; set; } = new List<StatsResult>();
+
+        public static string APIUrl = "https://localhost:7045/";
     }
 }

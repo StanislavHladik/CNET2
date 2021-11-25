@@ -33,7 +33,7 @@ namespace WPFTextGUI.Views
         {
            StatsResult result = (StatsResult)DataContext;
 
-            var apiUrl = "https://localhost:7045/";
+            var apiUrl = Data.Data.APIUrl;
 
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(apiUrl);

@@ -189,7 +189,7 @@ namespace WPFTextGUI
 
         private async void btnShowAnalysisDetail_Click(object sender, RoutedEventArgs e)
         {
-            var url = "https://www.gutenberg.org/cache/epub/2036/pg2036.txt";
+            var url = txtInputUrl.Text;
 
             var d = DateTime.Now;
 
@@ -206,6 +206,22 @@ namespace WPFTextGUI
 
             StatsResultWindow rw = new StatsResultWindow(result);
             rw.Show();
+        }
+
+        private async void btnReadAllFromAPI_Click(object sender, RoutedEventArgs e)
+        {
+            var url = Data.Data.APIUrl;
+
+            using var httpClient = new HttpClient();
+
+            var result = await httpClient.GetFromJsonAsync<IEnumerable<StatsResult>>(url + "/stats/all");
+
+            foreach(var item in result)
+            {
+                txbInfo.Text += item.Source + Environment.NewLine;
+                txbInfo.Text += item.SubmitedBy + Environment.NewLine;
+            }
+            
         }
 
         //private async void btnUpload_Click(object sender, RoutedEventArgs e)
